@@ -6,24 +6,17 @@
   <script src="https://unpkg.com/react@18.1.0/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+
   <script type="text/babel">
-    // In typescript prop types is not needed as the typescript compiler does the same job.
-    const PropTypes = {
-      string(props, propName, componentName) {
-        const type = typeof props[propName];
-        if (type !== 'string') {
-          return new Error(`Type ${type} is not accepted for prop '${propName}' in the component '${componentName}'`)
-        }
-      },
-    }
-    
     const Message = ({greeting, subject}) => {
       return(<div className="message">{greeting}, {subject}</div>)
     }
 
+    // In typescript prop types is not needed as the typescript compiler does the same job.
     Message.propTypes = {
-      greeting: PropTypes.string,
-      subject: PropTypes.string
+      greeting: PropTypes.string.isRequired,
+      subject: PropTypes.string.isRequired
     }
 
     const element = (
