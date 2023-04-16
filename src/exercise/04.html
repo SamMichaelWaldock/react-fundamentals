@@ -7,12 +7,29 @@
   <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
   <script type="text/babel">
-    const Message = ({children}) => <div className="message">{children}</div>
+    // In typescript prop types is not needed as the typescript compiler does the same job.
+    const PropTypes = {
+      string(props, propName, componentName) {
+        const type = typeof props[propName];
+        if (type !== 'string') {
+          return new Error(`Type ${type} is not accepted for prop '${propName}' in the component '${componentName}'`)
+        }
+      },
+    }
+    
+    const Message = ({greeting, subject}) => {
+      return(<div className="message">{greeting}, {subject}</div>)
+    }
+
+    Message.propTypes = {
+      greeting: PropTypes.string,
+      subject: PropTypes.string
+    }
 
     const element = (
       <div className="container">
-        <Message>Hello World</Message>
-        <Message>Goodbye World</Message>
+        <Message greeting="Hello" subject="World" />
+        <Message greeting="Goodbye" subject="World" />
       </div>
     )
 
